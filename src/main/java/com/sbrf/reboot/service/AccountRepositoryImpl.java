@@ -15,11 +15,11 @@ public class AccountRepositoryImpl implements AccountRepository {
     public Set<Account> getAllAccountsByClientId(Integer clientId) throws IOException {
         Set<Account> accounts = new HashSet();
         if (path != null) {
-            String result = getDataFromFile();
+            String result = getDataFromFile().toString();
             int findClientIdIndex = 0;
-            int findNumberIndex = 0;
+            int findNumberIndex;
             while (findClientIdIndex != -1) {
-                findClientIdIndex = result.indexOf("clientId", findClientIdIndex+1);
+                findClientIdIndex = result.indexOf("clientId", findClientIdIndex + 1);
                 if (findClientIdIndex != -1) {
                     /*парсинг номера clientId и сравнение его с входящим параметром clientId*/
                     /*парсить json стринговыми методами бесчеловечно!*/
@@ -27,7 +27,7 @@ public class AccountRepositoryImpl implements AccountRepository {
                             result.indexOf(",", findClientIdIndex + 11)).equals(clientId.toString())) {
                         findNumberIndex = result.indexOf("number", findClientIdIndex + 11);
                         String str = result.substring(findNumberIndex + 10,
-                                result.indexOf("\"", findNumberIndex+10));
+                                result.indexOf("\"", findNumberIndex + 10));
                         accounts.add(new Account(str));
                     }
                 }
@@ -36,7 +36,7 @@ public class AccountRepositoryImpl implements AccountRepository {
         return accounts;
     }
 
-    private String getDataFromFile() throws IOException {
+    private StringBuilder getDataFromFile() throws IOException {
         try (FileInputStream inputStream = new FileInputStream(path);
              BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
         ) {
@@ -46,14 +46,40 @@ public class AccountRepositoryImpl implements AccountRepository {
                 result.append(line);
                 result.append(System.lineSeparator());
             }
-
-
-            return result.toString();
+            return result;
         }
     }
 
     @Override
     public Set<Account> getAllAccountsByClientId(Long clientId) throws IOException {
         return getAllAccountsByClientId(clientId.intValue());
+    }
+
+    @Override
+    public void changeAccountClientId(Integer oldClientId, Integer newClientId) throws IOException {
+        if (path != null) {
+            StringBuilder oldString = getDataFromFile();
+            StringBuilder newString = new StringBuilder(oldString);
+            int findClientIdIndex = 0;
+            while (findClientIdIndex != -1) {
+                findClientIdIndex = newString.indexOf("clientId", findClientIdIndex + 1);
+                if (findClientIdIndex != -1) {
+                    if (newString.substring(findClientIdIndex + 11,
+                            newString.indexOf(",", findClientIdIndex + 11)).equals(oldClientId.toString())) {
+                        newString.replace(findClientIdIndex + 11,
+                                newString.indexOf(",", findClientIdIndex + 11), newClientId.toString());
+                    }
+                }
+            }
+            if (!newString.toString().equals(oldString.toString())) {
+                writeToFile(newString);
+            }
+        }
+    }
+
+    private void writeToFile(StringBuilder result) throws IOException {
+        try (FileWriter targetFile = new FileWriter(path)) {
+            targetFile.write(result.toString());
+        }
     }
 }

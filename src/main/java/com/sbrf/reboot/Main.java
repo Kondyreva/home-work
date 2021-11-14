@@ -11,5 +11,6 @@ public class Main {
     public static void main(String[] args) throws IOException {
         AccountRepository accountRepository = new AccountRepositoryImpl("src/main/resources/Accounts.txt");
         Set<Account> allAccountsByClientId = accountRepository.getAllAccountsByClientId(1);
+        accountRepository.changeAccountClientId(7, 1);
     }
 }
