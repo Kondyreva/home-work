@@ -24,8 +24,8 @@ public class AccountRepositoryImpl implements AccountRepository {
                     /*парсинг номера clientId и сравнение его с входящим параметром clientId*/
                     /*парсить json стринговыми методами бесчеловечно!*/
                     if (result.substring(findClientIdIndex + 11,
-                            result.indexOf(",", findClientIdIndex)).equals(clientId.toString())) {
-                        findNumberIndex = result.indexOf("number", findNumberIndex);
+                            result.indexOf(",", findClientIdIndex + 11)).equals(clientId.toString())) {
+                        findNumberIndex = result.indexOf("number", findClientIdIndex + 11);
                         String str = result.substring(findNumberIndex + 10,
                                 result.indexOf("\"", findNumberIndex+10));
                         accounts.add(new Account(str));
