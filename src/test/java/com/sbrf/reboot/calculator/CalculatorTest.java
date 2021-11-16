@@ -37,7 +37,7 @@ class CalculatorTest {
 
     @Test
     void getAdditionNullValue() {
-        assertThrows(NullPointerException.class, () -> Calculator.getAddition(null, 3));
+        assertThrows(NullPointerException.class, () -> Calculator.getSubtraction(null, 3));
     }
 
     @Test
