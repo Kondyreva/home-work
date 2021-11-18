@@ -11,14 +11,7 @@ public class AccountService {
 
     public Boolean isAccountExist(Long clientId, Account account) {
         Set<Account> accounts = accountRepository.getAllAccountsByClientId(clientId);
-        boolean result = false;
-        for (Account a : accounts) {
-            if (a.getName().equals(account.getName())) {
-                result = true;
-                break;
-            }
-        }
-        return result;
+        return accounts.contains(new Account(account.getName()));
     }
 }
 
