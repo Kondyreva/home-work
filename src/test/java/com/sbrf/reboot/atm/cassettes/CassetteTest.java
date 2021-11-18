@@ -25,4 +25,38 @@ class CassetteTest {
 
         Assertions.assertEquals(1, cassette.getCountBanknotes());
     }
+
+    @Test
+    void getCountBanknotes_More() {
+        OneHundred oneHundred = new OneHundred();
+
+        Cassette<OneHundred> cassette = new Cassette<>(new ArrayList<OneHundred>() {{
+            add(oneHundred);
+            add(oneHundred);
+            add(oneHundred);
+        }});
+
+        Assertions.assertEquals(3, cassette.getCountBanknotes());
+    }
+
+    @Test
+    void getCountBanknotes_Empty() {
+        Cassette<OneThousand> cassette = new Cassette<>(new ArrayList<OneThousand>() {
+        });
+
+        Assertions.assertEquals(0, cassette.getCountBanknotes());
+    }
+
+    @Test
+    void getCountBanknotes_DifferentTypes() {
+        Cassette<Banknote> cassette = new Cassette<>(new ArrayList<Banknote>() {{
+            add(new Banknote());
+            add(new OneHundred());
+            add(new OneThousand());
+
+        }});
+
+        Assertions.assertEquals(3, cassette.getCountBanknotes());
+    }
+
 }
