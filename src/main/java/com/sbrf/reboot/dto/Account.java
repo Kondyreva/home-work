@@ -1,3 +1,4 @@
+
 package com.sbrf.reboot.dto;
 
 import lombok.Builder;
@@ -14,13 +15,4 @@ public class Account {
     Long id;
     LocalDate createDate;
     BigDecimal balance;
-
-    @Override
-    public String toString() {
-        return "Account{" +
-                "id=" + id +
-                ", createDate=" + createDate +
-                ", balance=" + balance +
-                '}';
-    }
 }

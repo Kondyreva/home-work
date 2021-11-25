@@ -9,31 +9,53 @@ import java.util.List;
 
 public class AccountUtils {
     public static void sortedById(List<Account> accounts) {
-        accounts.sort(Comparator.comparing(Account::getId));
+        Comparator<Account> comparator = new Comparator<Account>() {
+            @Override
+            public int compare(Account acc1, Account acc2) {
+                return acc1.getId().intValue() - acc2.getId().intValue();
+            }
+        };
+        Collections.sort(accounts, comparator);
     }
 
     public static void sortedByIdDate(List<Account> accounts) {
-        Collections.sort(accounts, new Comparator() {
-            public int compare(Object acc1, Object acc2) {
-                Long x1 = ((Account) acc1).getId();
-                Long x2 = ((Account) acc2).getId();
-                int sComp = x1.compareTo(x2);
-
-                if (sComp != 0) {
-                    return sComp;
+        Comparator<Account> comparator = new Comparator<Account>() {
+            @Override
+            public int compare(Account acc1, Account acc2) {
+                Long x1 = acc1.getId();
+                Long x2 = acc2.getId();
+                int idCompare = x1.compareTo(x2);
+                if (idCompare != 0) {
+                    return idCompare;
                 }
-
-                LocalDate date1 = ((Account) acc1).getCreateDate();
-                LocalDate date2 = ((Account) acc2).getCreateDate();
+                LocalDate date1 = acc1.getCreateDate();
+                LocalDate date2 = acc2.getCreateDate();
                 return date1.compareTo(date2);
             }
-        });
+        };
+        Collections.sort(accounts, comparator);
     }
 
     public static void sortedByIdDateBalance(List<Account> accounts) {
-        accounts.sort(Comparator.comparing(Account::getId)
-                .thenComparing(Account::getCreateDate)
-                .thenComparing(Account::getBalance));
+        Comparator<Account> comparator = new Comparator<Account>() {
+            @Override
+            public int compare(Account acc1, Account acc2) {
+                Long x1 = acc1.getId();
+                Long x2 = acc2.getId();
+                int idCompare = x1.compareTo(x2);
+                if (idCompare != 0) {
+                    return idCompare;
+                }
+                LocalDate date1 = acc1.getCreateDate();
+                LocalDate date2 = acc2.getCreateDate();
+                int dateCompare = date1.compareTo(date2);
+                if (dateCompare != 0) {
+                    return dateCompare;
+                }
+                return acc1.getBalance().compareTo(acc2.getBalance());
+            }
+        };
+        Collections.sort(accounts, comparator);
     }
 }
 
