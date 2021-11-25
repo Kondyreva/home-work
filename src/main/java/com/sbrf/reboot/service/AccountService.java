@@ -12,14 +12,7 @@ public class AccountService {
 
     public Boolean isAccountExist(Long clientId, Account account) throws IOException {
         Set<Account> accounts = accountRepository.getAllAccountsByClientId(clientId);
-        boolean result = false;
-        for (Account a : accounts) {
-            if (a.getNumber().equals(account.getNumber())) {
-                result = true;
-                break;
-            }
-        }
-        return result;
+        return accounts.contains(new Account(account.getNumber()));
     }
 }
 
