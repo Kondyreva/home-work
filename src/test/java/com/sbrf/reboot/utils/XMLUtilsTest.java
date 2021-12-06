@@ -25,13 +25,13 @@ class XMLUtilsTest {
 
     @Test
     void XMLtoRequest() throws JsonProcessingException {
-        Request request = XMLUtils.XMLtoRequest("<Request><atmNumber>ATM12345</atmNumber></Request>");
+        Request request = XMLUtils.fromXML("<Request><atmNumber>ATM12345</atmNumber></Request>", Request.class);
         Assertions.assertEquals("ATM12345", request.getAtmNumber());
     }
 
     @Test
     void XMLtoResponse() throws JsonProcessingException {
-        Response request = XMLUtils.XMLtoResponse("<Response><statusCode>SUCCESS</statusCode></Response>");
+        Response request = XMLUtils.fromXML("<Response><statusCode>SUCCESS</statusCode></Response>", Response.class);
         Assertions.assertEquals("SUCCESS", request.getStatusCode());
     }
 

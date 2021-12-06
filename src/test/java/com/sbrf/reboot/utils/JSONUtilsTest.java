@@ -26,14 +26,14 @@ class JSONUtilsTest {
     @SneakyThrows
     @Test
     void JSONtoRequest()  {
-        Request request = JSONUtils.JSONtoRequest("{\"atmNumber\":\"ATM12345\"}");
+        Request request = JSONUtils.fromJSON("{\"atmNumber\":\"ATM12345\"}", Request.class);
         Assertions.assertEquals("ATM12345", request.getAtmNumber());
     }
 
     @SneakyThrows
     @Test
     void JSONtoResponse()  {
-        Response response = JSONUtils.JSONtoResponse("{\"statusCode\":\"SUCCESS\"}");
+        Response response = JSONUtils.fromJSON("{\"statusCode\":\"SUCCESS\"}", Response.class);
         Assertions.assertEquals("SUCCESS", response.getStatusCode());
     }
 
