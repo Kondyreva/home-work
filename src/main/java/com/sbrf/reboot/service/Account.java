@@ -17,9 +17,15 @@ public class Account {
     private Long id;
     private BigDecimal balance;
     private LocalDate createDate;
-    private String name;
+    private String number;
 
-    public Account(String name) {
-        this.name = name;
+    public Account(String number) {
+
+        this.number = number;
+    }
+
+    public Account(Integer clientId, String number) {
+        this.clientId = Long.valueOf(clientId);
+        this.number = number;
     }
 }

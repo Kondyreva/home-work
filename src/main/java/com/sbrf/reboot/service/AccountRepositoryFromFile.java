@@ -1,13 +1,16 @@
 package com.sbrf.reboot.service;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class AccountRepositoryFromFile implements AccountRepository {
     private final String path;
@@ -24,7 +27,10 @@ public class AccountRepositoryFromFile implements AccountRepository {
             String result = readFromFile(path);
 
             StringReader reader = new StringReader(result);
-            mapper.readValue(reader, String.class);
+            List<Account> accountList = mapper.readValue(reader, new TypeReference<List<Account>>(){});
+            accounts = accountList.stream()
+                    .filter(account -> account.getClientId().equals(clientId))
+                    .collect(Collectors.toSet());
         }
 
         return accounts;
