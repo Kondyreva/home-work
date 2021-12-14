@@ -27,14 +27,4 @@ public class Account {
         this.number = number;
     }
 
-    @Override
-    public String toString() {
-        return "Account{" +
-                "clientId=" + clientId +
-                ", id=" + id +
-                ", balance=" + balance +
-                ", createDate=" + createDate +
-                ", number='" + number + '\'' +
-                '}';
-    }
 }
