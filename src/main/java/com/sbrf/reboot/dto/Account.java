@@ -1,9 +1,6 @@
-package com.sbrf.reboot.service;
+package com.sbrf.reboot.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -11,6 +8,7 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
 public class Account {
     private Long clientId;
@@ -27,5 +25,16 @@ public class Account {
     public Account(Integer clientId, String number) {
         this.clientId = Long.valueOf(clientId);
         this.number = number;
+    }
+
+    @Override
+    public String toString() {
+        return "Account{" +
+                "clientId=" + clientId +
+                ", id=" + id +
+                ", balance=" + balance +
+                ", createDate=" + createDate +
+                ", number='" + number + '\'' +
+                '}';
     }
 }

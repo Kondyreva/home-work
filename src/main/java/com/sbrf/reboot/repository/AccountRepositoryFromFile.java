@@ -1,7 +1,8 @@
-package com.sbrf.reboot.service;
+package com.sbrf.reboot.repository;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sbrf.reboot.dto.Account;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -21,15 +22,14 @@ public class AccountRepositoryFromFile implements AccountRepository {
     }
 
     @Override
-    public Set<Account> getAllAccountsByClientId(Long clientId) throws IOException {
+    public <T extends  Number> Set<Account> getAllAccountsByClientId(T clientId) throws IOException {
         Set<Account> accounts = new HashSet();
         if (path != null) {
             String result = readFromFile(path);
 
-            StringReader reader = new StringReader(result);
-            List<Account> accountList = mapper.readValue(reader, new TypeReference<List<Account>>(){});
+            List<Account> accountList = mapper.readValue(result, new TypeReference<List<Account>>(){});
             accounts = accountList.stream()
-                    .filter(account -> account.getClientId().equals(clientId))
+                    .filter(account -> account.getClientId().equals(1L))
                     .collect(Collectors.toSet());
         }
 
