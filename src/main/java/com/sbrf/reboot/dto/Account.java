@@ -1,18 +1,30 @@
-
 package com.sbrf.reboot.dto;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Builder
 public class Account {
-    Long id;
-    LocalDate createDate;
-    BigDecimal balance;
+    private Long clientId;
+    private Long id;
+    private BigDecimal balance;
+    private LocalDate createDate;
+    private String number;
+
+    public Account(String number) {
+
+        this.number = number;
+    }
+
+    public Account(Integer clientId, String number) {
+        this.clientId = Long.valueOf(clientId);
+        this.number = number;
+    }
+
 }
