@@ -17,7 +17,7 @@ public class Servlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
-        visitCounter = (AtomicInteger) session.getAttribute("visitCounter");
+        visitCounter = new AtomicInteger((Integer) session.getAttribute("visitCounter"));
         visitCounter.incrementAndGet();
 
         session.setAttribute("visitCounter", visitCounter);
