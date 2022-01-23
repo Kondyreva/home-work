@@ -12,9 +12,12 @@ import reactor.core.scheduler.Schedulers;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -50,10 +53,26 @@ class MainReportTest {
 
     @Test
     void getTotalsWithCompletableFuture() throws ExecutionException, InterruptedException {
-        CompletableFuture<Double> balanceByCompletableFuture = operation.getTotalsWithCompletableFuture(newCustomer.stream());
-        Double result = balanceByCompletableFuture.get();
+        List<CompletableFuture<Double>> balanceByCustomer = newCustomer.stream()
+                .map(customer -> operation.getTotalsWithCompletableFuture(Stream.of(customer)))
+                .collect(Collectors.toList());
+        CompletableFuture<Void> allBalances = CompletableFuture.allOf(
+                balanceByCustomer.toArray(new CompletableFuture[0]));
 
-        assertEquals(2500.0,result);
+        CompletableFuture<List<Double>> allCustomersBalancesList = allBalances.thenApply(v -> {
+            return balanceByCustomer.stream()
+                    .map(CompletableFuture::join)
+                    .collect(Collectors.toList());});
+
+        CompletableFuture<Double> countBalance = allCustomersBalancesList.thenApply(balance -> {
+            return balance.stream()
+                    .mapToDouble(Double::doubleValue)
+                    .sum();
+        });
+        Double expected = 2500.0;
+        Double result = countBalance.get();
+
+        assertEquals(expected,result);
     }
 
     @Test
