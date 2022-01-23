@@ -5,8 +5,14 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
     http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="test" class="sbp.sbrf.example.TestClassPathXml">
-        <property name="msg" value="Hello there!"/>
+    <bean id="account" class="com.sbrf.reboot.lab16.dto.Account">
+    <property name="balance" value="10.23"/>
+    <property name="currency" value="USD"/>
+</bean>
+
+    <bean class="com.sbrf.reboot.lab16.dto.AccountWithConstructor">
+        <constructor-arg ref="account"/>
+
     </bean>
 
 </beans>

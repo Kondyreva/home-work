@@ -1,15 +1,13 @@
-package sbp.sbrf.example;
+package com.sbrf.reboot.lab16;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import com.sbrf.reboot.lab16.dto.Account;
+import com.sbrf.reboot.lab16.dto.ClientWithConstructor;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import sbp.sbrf.example.annotations.TestAnnotationConfig;
 
-import java.util.HashMap;
-
-@ComponentScan(basePackages = "sbp.sbrf.example.annotations")
+@ComponentScan(basePackages = "com.sbrf.reboot.lab16.dto")
 public class Main {
     public static void main(String[] args) {
 
@@ -19,24 +17,20 @@ public class Main {
     }
 
     public static void getClassPathXMLContext(){
-        ApplicationContext context =
+        ApplicationContext xmlContext =
                 new ClassPathXmlApplicationContext("context.xml");
 
-        TestClassPathXml obj =  context.getBean("test", TestClassPathXml.class);
+        Account account = xmlContext.getBean(Account.class);
 
-        String msg = obj.getMsg();
-
-        System.out.println(msg);
+        System.out.println(account);
     }
 
     public static void getAnnotationConfigContext(){
-        ApplicationContext context =
+        ApplicationContext annotationContext =
                 new AnnotationConfigApplicationContext(Main.class);
 
-        TestAnnotationConfig obj =  context.getBean("test", TestAnnotationConfig.class);
+        ClientWithConstructor clientWithConstructor = annotationContext.getBean(ClientWithConstructor.class);
 
-        String msg = obj.getMsg();
-
-        System.out.println(msg);
+        System.out.println(clientWithConstructor.getClient());
     }
 }

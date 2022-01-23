@@ -18,6 +18,8 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <lombok.version>1.18.22</lombok.version>
+        <junit.version>4.12</junit.version>
     </properties>
 
     <dependencies>
@@ -35,6 +37,24 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-beans</artifactId>
             <version>${spring-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>RELEASE</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
@@ -54,7 +74,7 @@
                     <!-- ... -->
                     <archive>
                         <manifest>
-                            <mainClass>sbp.sbrf.example.Main</mainClass>
+                            <mainClass>com.sbrf.reboot.lab16.Main</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>
