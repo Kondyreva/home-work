@@ -16,8 +16,7 @@ public class ClientWithConstructorTest {
 
         ClientWithConstructor clientWithConstructor = annotationContext.getBean(ClientWithConstructor.class);
 
-        Integer expected = 30;
-        assertEquals(expected, clientWithConstructor.getClient().getAge());
+        assertEquals(Integer.valueOf(30), clientWithConstructor.getClient().getAge());
         assertEquals("Jon", clientWithConstructor.getClient().getName());
     }
 }

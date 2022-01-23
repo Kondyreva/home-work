@@ -15,7 +15,7 @@ public class AccountWithConstructorTest {
 
         Account account = xmlContext.getBean(Account.class);
 
-        assertEquals(10.23,account.getBalance(), 0.001);
-        assertEquals("USD",account.getCurrency());
+        assertEquals(10.23, account.getBalance(), 0.001);
+        assertEquals("USD", account.getCurrency());
     }
 }
