@@ -17,16 +17,6 @@
         <!-- https://maven.apache.org/plugins/maven-resources-plugin/examples/encoding.html -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <!--
-            Версии зависимостей.
-
-            Всегда выносите их:
-            1. в секцию properties POM файла для одномодульных maven проектов
-            2. в секцию properties корневого POM файла для многомодульных maven проектов (они будут наследоваться в подмодулях)
-            3. в BOM файл если зависимость используется в разных maven проектах
-
-            https://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html#bill-of-materials-bom-poms
-        -->
         <lombok.version>1.18.20</lombok.version>
         <junit-jupiter.version>5.7.2</junit-jupiter.version>
         <mockito-core.version>3.11.2</mockito-core.version>
